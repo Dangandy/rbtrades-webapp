@@ -1,10 +1,23 @@
-import { ChevronRightIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
-import Header from '../components/Head';
+import { useUser } from '@auth0/nextjs-auth0';
 import Layout from '../components/Layout';
-import Navbar from '../components/Navbar';
 
 export default function Home() {
+  const { user, error, isLoading } = useUser();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+
+  if (user) {
+    const message = `Welcome ${user.name}!`;
+    return (
+      <div>
+        {message}
+        <a href="/api/auth/logout">Logout</a>
+      </div>
+    );
+  }
+
   return (
     <Layout title="Roses & Bee Trades">
       <main>
@@ -48,7 +61,7 @@ export default function Home() {
                       </div>
                       <p className="mt-3 text-sm text-gray-300 sm:mt-4">
                         {`providing your email, you agree to RBTrades `}
-                        <a href="#" className="font-medium text-white">
+                        <a href="/" className="font-medium text-white">
                           terms or service
                         </a>
                         .

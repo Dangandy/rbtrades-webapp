@@ -7,12 +7,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^4.0.0",
+    "@auth0/nextjs-auth0": "^1.5.0",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
     "@tailwindcss/forms": "^0.3.3",
+    "apollo-boost": "^0.4.9",
+    "apollo-link-ws": "^1.0.20",
+    "graphql": "^15.5.3",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "subscriptions-transport-ws": "^0.9.19",
     "tailwindcss": "^2.2.4"
   },
   "devDependencies": {

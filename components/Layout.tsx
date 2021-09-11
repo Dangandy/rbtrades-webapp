@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { LayoutProps } from '../types';
 import Header from './Head';
 import Navbar from './Navbar';
