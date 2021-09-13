@@ -5,14 +5,7 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { NavbarProps } from '../types';
 
-// const navigation = [
-//   { name: 'Product', href: '/' },
-//   { name: 'Features', href: '/' },
-//   { name: 'Marketplace', href: '/' },
-//   { name: 'Company', href: '/' },
-// ];
-
-export default function Navbar({ hideLogin }: NavbarProps) {
+export default function Navbar({ hideLogin, user }: NavbarProps) {
   return (
     <Popover as="header" className="relative border-b">
       <div className="bg-primary py-6">
@@ -39,25 +32,26 @@ export default function Navbar({ hideLogin }: NavbarProps) {
                 )}
               </div>
             </div>
-            <div className="hidden space-x-8 md:flex md:ml-10">
-              {/* {navigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-base font-medium text-yellow-450 hover:text-gray-300"
-                >
-                  {item.name}
-                </a>
-              ))} */}
-            </div>
+            <div className="hidden space-x-8 md:flex md:ml-10" />
           </div>
-          {!hideLogin && (
+          {!user && !hideLogin && (
             <div className="hidden md:flex md:items-center md:space-x-6">
-              <Link href="/login">
-                <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-secondary hover:bg-yellow-450">
-                  Log in
-                </a>
-              </Link>
+              <a
+                href="/api/auth/login"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-secondary hover:bg-yellow-450"
+              >
+                Log in
+              </a>
+            </div>
+          )}
+          {user && !hideLogin && (
+            <div className="hidden md:flex md:items-center md:space-x-6">
+              <a
+                href="/api/auth/logout"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-secondary hover:bg-yellow-450"
+              >
+                Log out
+              </a>
             </div>
           )}
         </nav>
@@ -93,9 +87,12 @@ export default function Navbar({ hideLogin }: NavbarProps) {
                 <div className="mt-6 px-5">
                   <p className="text-center text-base font-medium text-yellow-450">
                     {`Existing customer? `}
-                    <Link href="/login">
-                      <a className="text-yellow-450 hover:underline">Login</a>
-                    </Link>
+                    <a
+                      href="/api/auth/login"
+                      className="text-yellow-450 hover:underline"
+                    >
+                      Login
+                    </a>
                   </p>
                 </div>
               </div>
