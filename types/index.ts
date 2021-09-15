@@ -17,3 +17,7 @@ export interface LoadingProps {
 export interface LayoutProps extends HeaderProps, NavbarProps, LoadingProps {
   children: React.ReactNode;
 }
+
+export interface svgProps {
+  className?: string;
+}
