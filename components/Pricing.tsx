@@ -8,7 +8,7 @@ const tiers = [
     priceType: '',
     description: 'We know you are broke, so enjoy your first 100% loss on us',
     features: [
-      'Managed up to $3000',
+      'No fees on your first $3000 loss',
       'Live algorithm updates',
       'Western Europe Servers',
     ],

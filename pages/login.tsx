@@ -2,7 +2,7 @@
  * This page is currently not in use (we'll be using auth0's default pages)
  */
 import Link from 'next/link';
-import Layout from '../components/Layout';
+import Layout from '../components/PublicLayout';
 
 export default function login() {
   return (
