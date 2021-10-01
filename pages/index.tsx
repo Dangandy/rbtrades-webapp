@@ -22,5 +22,5 @@ export default function Home() {
       </Layout>
     );
   }
-  return <PrivateLayout />;
+  return <PrivateLayout title="Dashboard" />;
 }
