@@ -57,15 +57,12 @@ const transactions = [
   },
   // More transactions...
 ];
-const statusStyles = {
+
+const statusStyles: { [char: string]: string } = {
   success: 'bg-green-100 text-green-800',
   processing: 'bg-yellow-100 text-yellow-800',
   failed: 'bg-gray-100 text-gray-800',
 };
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
 
 export default function PrivateLayout({
   title,
@@ -143,25 +140,26 @@ export default function PrivateLayout({
                   aria-label="Sidebar"
                 >
                   <div className="px-2 space-y-1">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? 'bg-green-800 text-white'
-                            : 'text-green-100 hover:text-white hover:bg-green-600',
-                          'group flex items-center px-2 py-2 text-base font-medium rounded-md'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        <item.icon
-                          className="mr-4 flex-shrink-0 h-6 w-6 text-green-200"
-                          aria-hidden="true"
-                        />
-                        {item.name}
-                      </a>
-                    ))}
+                    {navigation.map((item) => {
+                      const isCurrentStyles = item.current
+                        ? 'bg-green-800 text-white'
+                        : 'text-green-100 hover:text-white hover:bg-green-600';
+
+                      return (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          className={`${isCurrentStyles} group flex items-center px-2 py-2 text-base font-medium rounded-md`}
+                          aria-current={item.current ? 'page' : undefined}
+                        >
+                          <item.icon
+                            className="mr-4 flex-shrink-0 h-6 w-6 text-green-200"
+                            aria-hidden="true"
+                          />
+                          {item.name}
+                        </a>
+                      );
+                    })}
                   </div>
                   <div className="mt-6 pt-6">
                     <div className="px-2 space-y-1">
@@ -206,25 +204,25 @@ export default function PrivateLayout({
                 aria-label="Sidebar"
               >
                 <div className="px-2 space-y-1">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
-                        item.current
-                          ? 'bg-green-800 text-white'
-                          : 'text-green-100 hover:text-white hover:bg-green-600',
-                        'group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md'
-                      )}
-                      aria-current={item.current ? 'page' : undefined}
-                    >
-                      <item.icon
-                        className="mr-4 flex-shrink-0 h-6 w-6 text-green-200"
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
-                  ))}
+                  {navigation.map((item) => {
+                    const isCurrentStyles = item.current
+                      ? 'bg-green-800 text-white'
+                      : 'text-green-100 hover:text-white hover:bg-green-600';
+                    return (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className={`${isCurrentStyles} group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md`}
+                        aria-current={item.current ? 'page' : undefined}
+                      >
+                        <item.icon
+                          className="mr-4 flex-shrink-0 h-6 w-6 text-green-200"
+                          aria-hidden="true"
+                        />
+                        {item.name}
+                      </a>
+                    );
+                  })}
                 </div>
                 <div className="mt-6 pt-6">
                   <div className="px-2 space-y-1">
@@ -324,10 +322,8 @@ export default function PrivateLayout({
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}
+                            className={`${active ? 'bg-gray-100' : ''}
+                          block px-4 py-2 text-sm text-gray-700`}
                           >
                             Your Profile
                           </a>
@@ -337,10 +333,8 @@ export default function PrivateLayout({
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}
+                            className={`${active ? 'bg-gray-100' : ''}
+                          block px-4 py-2 text-sm text-gray-700`}
                           >
                             Settings
                           </a>
@@ -350,10 +344,8 @@ export default function PrivateLayout({
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}
+                            className={`${active ? 'bg-gray-100' : ''}
+                          block px-4 py-2 text-sm text-gray-700`}
                           >
                             Logout
                           </a>
@@ -483,10 +475,7 @@ export default function PrivateLayout({
 
               {/* Activity list (smallest breakpoint only) */}
               <div className="shadow sm:hidden">
-                <ul
-                  role="list"
-                  className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden"
-                >
+                <ul className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden">
                   {transactions.map((transaction) => (
                     <li key={transaction.id}>
                       <a
@@ -505,8 +494,8 @@ export default function PrivateLayout({
                               </span>
                               <span>
                                 <span className="text-gray-900 font-medium">
-                                  {transaction.amount}
-                                </span>{' '}
+                                  {`${transaction.amount} `}
+                                </span>
                                 {transaction.currency}
                               </span>
                               <time dateTime={transaction.datetime}>
@@ -568,48 +557,48 @@ export default function PrivateLayout({
                           </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                          {transactions.map((transaction) => (
-                            <tr key={transaction.id} className="bg-white">
-                              <td className="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                <div className="flex">
-                                  <a
-                                    href={transaction.href}
-                                    className="group inline-flex space-x-2 truncate text-sm"
+                          {transactions.map((transaction) => {
+                            const statusStyle =
+                              statusStyles[transaction.status];
+                            return (
+                              <tr key={transaction.id} className="bg-white">
+                                <td className="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                  <div className="flex">
+                                    <a
+                                      href={transaction.href}
+                                      className="group inline-flex space-x-2 truncate text-sm"
+                                    >
+                                      <CashIcon
+                                        className="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                        aria-hidden="true"
+                                      />
+                                      <p className="text-gray-500 truncate group-hover:text-gray-900">
+                                        {transaction.name}
+                                      </p>
+                                    </a>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
+                                  <span className="text-gray-900 font-medium">
+                                    {`${transaction.amount} `}
+                                  </span>
+                                  {transaction.currency}
+                                </td>
+                                <td className="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-500 md:block">
+                                  <span
+                                    className={`${statusStyle} inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize`}
                                   >
-                                    <CashIcon
-                                      className="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                                      aria-hidden="true"
-                                    />
-                                    <p className="text-gray-500 truncate group-hover:text-gray-900">
-                                      {transaction.name}
-                                    </p>
-                                  </a>
-                                </div>
-                              </td>
-                              <td className="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                                <span className="text-gray-900 font-medium">
-                                  {transaction.amount}
-                                  {' '}
-                                </span>
-                                {transaction.currency}
-                              </td>
-                              <td className="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-500 md:block">
-                                <span
-                                  className={classNames(
-                                    statusStyles[transaction.status],
-                                    'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize'
-                                  )}
-                                >
-                                  {transaction.status}
-                                </span>
-                              </td>
-                              <td className="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                                <time dateTime={transaction.datetime}>
-                                  {transaction.date}
-                                </time>
-                              </td>
-                            </tr>
-                          ))}
+                                    {transaction.status}
+                                  </span>
+                                </td>
+                                <td className="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
+                                  <time dateTime={transaction.datetime}>
+                                    {transaction.date}
+                                  </time>
+                                </td>
+                              </tr>
+                            );
+                          })}
                         </tbody>
                       </table>
                       {/* Pagination */}
@@ -619,15 +608,15 @@ export default function PrivateLayout({
                       >
                         <div className="hidden sm:block">
                           <p className="text-sm text-gray-700">
-                            Showing
+                            {`Showing 1 to 10 of 20 results`}
+                            {/* Showing
+                            <span className="font-medium">1</span>
+                            to
                             {' '}
-                            <span className="font-medium">1</span> to
+                            <span className="font-medium">10</span>
+                            of <span className="font-medium">20</span>
                             {' '}
-                            <span className="font-medium">10</span> of
-                            {' '}
-                            <span className="font-medium">20</span>
-                            {' '}
-                            results
+                            results */}
                           </p>
                         </div>
                         <div className="flex-1 flex justify-between sm:justify-end">
